@@ -17,7 +17,6 @@ BuildRequires:	libevent-devel
 BuildRequires:	lua-devel >= 5.1
 BuildRequires:	mysql-devel
 BuildRequires:	pkgconfig
-Buildroot:	%{_tmppath}/%{name}-%{version}-%{release}-root
 
 %description
 MySQL Proxy is a simple program that sits between your client and MySQL
