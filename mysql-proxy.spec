@@ -1,12 +1,11 @@
 Summary:	A Proxy for the MySQL Client/Server protocol
 Name:		mysql-proxy
-Version:	0.6.0
+Version:	0.6.1
 Release:	%mkrel 1
 License:	GPL
 Group:		System/Servers
 URL:		http://forge.mysql.com/wiki/MySQL_Proxy
-Source0:	http://mysql.dataphone.se/Downloads/MySQL-Proxy/mysql-proxy-0.6.0.tar.gz
-Source1:	http://mysql.dataphone.se/Downloads/MySQL-Proxy/mysql-proxy-0.6.0.tar.gz.asc
+Source0:	http://mysql.dataphone.se/Downloads/MySQL-Proxy/mysql-proxy-%{version}.tar.gz
 Source2:	mysql-proxy.init
 Requires(preun): rpm-helper
 Requires(post): rpm-helper
@@ -78,4 +77,3 @@ rm -rf %{buildroot}
 %attr(0755,root,root) %{_sbindir}/%{name}
 %{_datadir}/%{name}
 %dir /var/run/%{name}
-
