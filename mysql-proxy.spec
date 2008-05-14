@@ -1,7 +1,7 @@
 Summary:	A Proxy for the MySQL Client/Server protocol
 Name:		mysql-proxy
 Version:	0.6.1
-Release:	%mkrel 1
+Release:	%mkrel 2
 License:	GPL
 Group:		System/Servers
 URL:		http://forge.mysql.com/wiki/MySQL_Proxy
@@ -16,7 +16,7 @@ BuildRequires:	libevent-devel
 BuildRequires:	lua-devel >= 5.1
 BuildRequires:	mysql-devel
 BuildRequires:	pkgconfig
-Buildroot:	%{_tmppath}/%{name}-%{version}-%{release}-root
+BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
 MySQL Proxy is a simple program that sits between your client and MySQL
