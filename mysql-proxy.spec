@@ -4,7 +4,7 @@
 
 Summary:	A Proxy for the MySQL Client/Server protocol
 Name:		mysql-proxy
-Version:	0.7.1
+Version:	0.7.2
 Release:	%mkrel 1
 License:	GPL
 Group:		System/Servers
