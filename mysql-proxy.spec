@@ -4,19 +4,20 @@
 
 Summary:	A Proxy for the MySQL Client/Server protocol
 Name:		mysql-proxy
-Version:	0.7.2
+Version:	0.8.0
 Release:	%mkrel 1
 License:	GPL
 Group:		System/Servers
 URL:		http://forge.mysql.com/wiki/MySQL_Proxy
 Source0:	http://mysql.dataphone.se/Downloads/MySQL-Proxy/mysql-proxy-%{version}.tar.gz
+Source1:	http://mysql.dataphone.se/Downloads/MySQL-Proxy/mysql-proxy-%{version}.tar.gz.asc
 Source2:	mysql-proxy.init
 Requires(preun): rpm-helper
 Requires(post): rpm-helper
 BuildRequires:	bison
 BuildRequires:	flex
 BuildRequires:	glib2-devel
-BuildRequires:	libevent-devel
+BuildRequires:	libevent-devel >= 1.4
 BuildRequires:	lua-devel >= 5.1
 BuildRequires:	mysql-devel
 BuildRequires:	pkgconfig
@@ -63,8 +64,14 @@ install -d %{buildroot}%{_initrddir}
 install -d %{buildroot}%{_sysconfdir}/sysconfig
 install -d %{buildroot}%{_datadir}/%{name}
 install -d %{buildroot}/var/run/%{name}
+install -d %{buildroot}%{_sbindir}
+install -d %{buildroot}%{_includedir}/%{name}
 
 %makeinstall
+
+# bork
+mv %{buildroot}%{_bindir}/mysql-proxy %{buildroot}%{_sbindir}/
+mv %{buildroot}%{_includedir}/*.h %{buildroot}%{_includedir}/%{name}/
 
 install -m0755 mysql-proxy.init %{buildroot}%{_initrddir}/%{name}
 install -m0644 examples/*.lua %{buildroot}%{_datadir}/%{name}/
@@ -121,4 +128,8 @@ rm -rf %{buildroot}
 
 %files -n %{develname}
 %defattr(-,root,root)
+%dir %{_includedir}/%{name}
+%{_includedir}/%{name}/*.h
 %{_libdir}/*.so
+%{_libdir}/pkgconfig/mysql-chassis.pc
+%{_libdir}/pkgconfig/mysql-proxy.pc
