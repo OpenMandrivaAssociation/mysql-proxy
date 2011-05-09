@@ -4,8 +4,8 @@
 
 Summary:	A Proxy for the MySQL Client/Server protocol
 Name:		mysql-proxy
-Version:	0.8.0
-Release:	%mkrel 3
+Version:	0.8.1
+Release:	%mkrel 1
 License:	GPL
 Group:		System/Servers
 URL:		http://forge.mysql.com/wiki/MySQL_Proxy
@@ -120,6 +120,7 @@ rm -rf %{buildroot}
 %{_libdir}/mysql-proxy/plugins/*.so
 %{_libdir}/mysql-proxy/lua/*.so
 %{_libdir}/mysql-proxy/lua/proxy/*.lua
+%{_libdir}/mysql-proxy/lua/*.lua
 
 %files -n %{libname}
 %defattr(-,root,root)
