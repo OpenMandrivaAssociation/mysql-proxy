@@ -1,0 +1,4 @@
+sources:
+  "mysql-proxy-0.8.1.tar.gz:"	24397e2e924e39970d6d0bb115ad29f723e64f96
+  "mysql-proxy-0.8.1.tar.gz.asc:"	e10b61302dcce0e351a69aca015807c23cb14d72
+  "mysql-proxy.init:"	e83b154800a0fc61ac0ba4dc1b054f2b65c497ca
