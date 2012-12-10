@@ -134,3 +134,52 @@ rm -rf %{buildroot}
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/mysql-chassis.pc
 %{_libdir}/pkgconfig/mysql-proxy.pc
+
+
+%changelog
+* Mon May 09 2011 Oden Eriksson <oeriksson@mandriva.com> 0.8.1-1mdv2011.0
++ Revision: 672717
+- 0.8.1
+
+* Wed Dec 22 2010 Oden Eriksson <oeriksson@mandriva.com> 0.8.0-3mdv2011.0
++ Revision: 623875
+- rebuilt against libevent 2.x
+- the mass rebuild of 2010.1 packages
+
+* Sun Jan 31 2010 Oden Eriksson <oeriksson@mandriva.com> 0.8.0-1mdv2010.1
++ Revision: 498813
+- 0.8.0
+
+* Thu Jul 09 2009 Frederik Himpe <fhimpe@mandriva.org> 0.7.2-1mdv2010.0
++ Revision: 394018
+- update to new version 0.7.2
+
+* Tue May 26 2009 Oden Eriksson <oeriksson@mandriva.com> 0.7.1-1mdv2010.0
++ Revision: 379886
+- 0.7.1
+
+* Sat Jul 19 2008 Oden Eriksson <oeriksson@mandriva.com> 0.6.1-3mdv2009.0
++ Revision: 238781
+- rebuild
+
+* Wed May 14 2008 Oden Eriksson <oeriksson@mandriva.com> 0.6.1-2mdv2009.0
++ Revision: 207047
+- rebuilt against libevent-1.4.4
+
+* Thu Mar 06 2008 Oden Eriksson <oeriksson@mandriva.com> 0.6.1-1mdv2008.1
++ Revision: 180945
+- 0.6.1
+
+  + Olivier Blin <oblin@mandriva.com>
+    - restore BuildRoot
+
+  + Thierry Vignaud <tv@mandriva.org>
+    - kill re-definition of %%buildroot on Pixel's request
+
+* Thu Oct 25 2007 Oden Eriksson <oeriksson@mandriva.com> 0.6.0-1mdv2008.1
++ Revision: 102012
+- import mysql-proxy
+
+
+* Thu Oct 25 2007 Oden Eriksson <oeriksson@mandriva.com> 0.6.0-1mdv2008.1
+- initial Mandriva package
