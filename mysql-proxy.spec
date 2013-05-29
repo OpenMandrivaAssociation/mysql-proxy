@@ -4,8 +4,8 @@
 
 Summary:	A Proxy for the MySQL Client/Server protocol
 Name:		mysql-proxy
-Version:	0.8.1
-Release:	2
+Version:	0.8.3
+Release:	1
 License:	GPLv2
 Group:		System/Servers
 Url:		http://forge.mysql.com/wiki/MySQL_Proxy
@@ -52,7 +52,7 @@ cp %{SOURCE2} mysql-proxy.init
 %configure2_5x \
 	--with-lua
 
-%make
+%make LIBS='-llua'
 
 %install
 install -d %{buildroot}%{_initrddir}
