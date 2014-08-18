@@ -1,16 +1,18 @@
-%define major	0
+%define major 0
 %define libname %mklibname mysql-proxy %{major}
+%define libchassis %mklibname mysql-chassis %{major}
+%define libchassis_glibext %mklibname mysql-chassis-glibext %{major}
+%define libchassis_timing %mklibname mysql-chassis-timing %{major}
 %define devname %mklibname mysql-proxy -d
 
 Summary:	A Proxy for the MySQL Client/Server protocol
 Name:		mysql-proxy
-Version:	0.8.3
+Version:	0.8.4
 Release:	1
-License:	GPLv2
+License:	GPLv2+
 Group:		System/Servers
 Url:		http://forge.mysql.com/wiki/MySQL_Proxy
 Source0:	http://mysql.dataphone.se/Downloads/MySQL-Proxy/mysql-proxy-%{version}.tar.gz
-Source1:	http://mysql.dataphone.se/Downloads/MySQL-Proxy/mysql-proxy-%{version}.tar.gz.asc
 Source2:	mysql-proxy.init
 BuildRequires:	bison
 BuildRequires:	flex
@@ -26,22 +28,107 @@ server(s) that can monitor, analyze or transform their communication. Its
 flexibility allows for unlimited uses; common ones include: load balancing;
 failover; query analysis; query filtering and modification; and many more.
 
-%package -n	%{libname}
-Summary:	Shared libraries for %{name}
+%files
+%doc AUTHORS NEWS README README.TESTS
+%attr(0755,root,root) %{_initrddir}/%{name}
+%attr(0644,root,root) %config(noreplace) %{_sysconfdir}/sysconfig/%{name}
+%{_sbindir}/mysql-proxy
+%{_bindir}/mysql-binlog-dump
+%{_bindir}/mysql-myisam-dump
+%dir %{_datadir}/%{name}
+%{_datadir}/%{name}/*.lua
+%dir /var/run/%{name}
+%dir %{_libdir}/mysql-proxy
+%dir %{_libdir}/mysql-proxy/plugins
+%dir %{_libdir}/mysql-proxy/lua
+%dir %{_libdir}/mysql-proxy/lua/proxy
+%{_libdir}/mysql-proxy/plugins/*.so
+%{_libdir}/mysql-proxy/lua/*.so
+%{_libdir}/mysql-proxy/lua/proxy/*.lua
+%{_libdir}/mysql-proxy/lua/*.lua
+
+%post
+%_post_service %{name}
+
+%preun
+%_preun_service %{name}
+
+#----------------------------------------------------------------------------
+
+%package -n %{libname}
+Summary:	Shared library for %{name}
 Group:		System/Libraries
 
-%description -n	%{libname}
-This package contains the shared libraries for %{name}.
+%description -n %{libname}
+This package contains shared library for %{name}.
 
-%package -n	%{devname}
+%files -n %{libname}
+%{_libdir}/libmysql-proxy.so.%{major}*
+
+#----------------------------------------------------------------------------
+
+%package -n %{libchassis}
+Summary:	Shared library for %{name}
+Group:		System/Libraries
+Conflicts:	%{_lib}mysql-proxy0 < 0.8.4
+
+%description -n %{libchassis}
+This package contains shared library for %{name}.
+
+%files -n %{libchassis}
+%{_libdir}/libmysql-chassis.so.%{major}*
+
+#----------------------------------------------------------------------------
+
+%package -n %{libchassis_glibext}
+Summary:	Shared library for %{name}
+Group:		System/Libraries
+Conflicts:	%{_lib}mysql-proxy0 < 0.8.4
+
+%description -n %{libchassis_glibext}
+This package contains shared library for %{name}.
+
+%files -n %{libchassis_glibext}
+%{_libdir}/libmysql-chassis-glibext.so.%{major}*
+
+#----------------------------------------------------------------------------
+
+%package -n %{libchassis_timing}
+Summary:	Shared library for %{name}
+Group:		System/Libraries
+Conflicts:	%{_lib}mysql-proxy0 < 0.8.4
+
+%description -n %{libchassis_timing}
+This package contains shared library for %{name}.
+
+%files -n %{libchassis_timing}
+%{_libdir}/libmysql-chassis-timing.so.%{major}*
+
+#----------------------------------------------------------------------------
+
+%package -n %{devname}
 Summary:	Development files for %{name}
 Group:		Development/C
+Requires:	%{libname} = %{EVRD}
+Requires:	%{libchassis} = %{EVRD}
+Requires:	%{libchassis_glibext} = %{EVRD}
+Requires:	%{libchassis_timing} = %{EVRD}
+Provides:	%{name}-devel = %{EVRD}
 
 %description -n	%{devname}
 This package contains development files for %{name}.
 
-%prep
+%files -n %{devname}
+%doc COPYING
+%dir %{_includedir}/%{name}
+%{_includedir}/%{name}/*.h
+%{_libdir}/*.so
+%{_libdir}/pkgconfig/mysql-chassis.pc
+%{_libdir}/pkgconfig/mysql-proxy.pc
 
+#----------------------------------------------------------------------------
+
+%prep
 %setup -q
 
 cp %{SOURCE2} mysql-proxy.init
@@ -75,43 +162,4 @@ MYSQL_PROXY_OPTIONS="--daemon --proxy-lua-script %{_datadir}/%{name}/tutorial-ba
 EOF
 
 install -m0644 mysql-proxy.sysconfig %{buildroot}%{_sysconfdir}/sysconfig/%{name}
-
-%post
-%_post_service %{name}
-
-%preun
-%_preun_service %{name}
-
-%files
-%doc AUTHORS NEWS README README.TESTS
-%attr(0755,root,root) %{_initrddir}/%{name}
-%attr(0644,root,root) %config(noreplace) %{_sysconfdir}/sysconfig/%{name}
-%{_sbindir}/mysql-proxy
-%{_bindir}/mysql-binlog-dump
-%{_bindir}/mysql-myisam-dump
-%dir %{_datadir}/%{name}
-%{_datadir}/%{name}/*.lua
-%dir /var/run/%{name}
-%dir %{_libdir}/mysql-proxy
-%dir %{_libdir}/mysql-proxy/plugins
-%dir %{_libdir}/mysql-proxy/lua
-%dir %{_libdir}/mysql-proxy/lua/proxy
-%{_libdir}/mysql-proxy/plugins/*.so
-%{_libdir}/mysql-proxy/lua/*.so
-%{_libdir}/mysql-proxy/lua/proxy/*.lua
-%{_libdir}/mysql-proxy/lua/*.lua
-
-%files -n %{libname}
-%{_libdir}/libmysql-proxy.so.%{major}*
-%{_libdir}/libmysql-chassis-glibext.so.%{major}*
-%{_libdir}/libmysql-chassis-timing.so.%{major}*
-%{_libdir}/libmysql-chassis.so.%{major}*
-
-%files -n %{devname}
-%doc COPYING
-%dir %{_includedir}/%{name}
-%{_includedir}/%{name}/*.h
-%{_libdir}/*.so
-%{_libdir}/pkgconfig/mysql-chassis.pc
-%{_libdir}/pkgconfig/mysql-proxy.pc
 
