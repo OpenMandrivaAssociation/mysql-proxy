@@ -11,7 +11,7 @@ Version:	0.8.4
 Release:	2
 License:	GPLv2+
 Group:		System/Servers
-Url:		http://forge.mysql.com/wiki/MySQL_Proxy
+Url:		https://forge.mysql.com/wiki/MySQL_Proxy
 Source0:	http://mysql.dataphone.se/Downloads/MySQL-Proxy/mysql-proxy-%{version}.tar.gz
 Source2:	mysql-proxy.init
 BuildRequires:	bison
