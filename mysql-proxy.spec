@@ -14,6 +14,11 @@ Group:		System/Servers
 Url:		https://forge.mysql.com/wiki/MySQL_Proxy
 Source0:	http://mysql.dataphone.se/Downloads/MySQL-Proxy/mysql-proxy-%{version}.tar.gz
 Source2:	mysql-proxy.init
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:	bison
 BuildRequires:	flex
 BuildRequires:	mysql-devel
